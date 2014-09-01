@@ -20,17 +20,45 @@ snipspector.parse = function() {
     "rs9604959	22	15479107	CG",
     "rs9604967	22	15492342	CC"];
 
-    var parsed = {};
+    var parsed = [];
 
     // analyze snippets
     // homo(zygous): AA
     // hetero(zygous): AC
     // del(etion): A-, -A or --
+    
+    var chr = null;
     for (var i = 0; i < data.length; i++) {
-        // Please fill in your code here! 
-    }
+      var row = data[i].split(/\s+/);
+      var chrName = row[1];
 
-    console.log(parsed); 
+      // new chromosome begins
+      if( chr == null ||  chrName !== chr.name) {
+        // ignore the first time
+        if( chr != null ){
+          parsed.push(chr);
+        }
+        chr = {homo: 0, hetero: 0, del: 0};
+        chr.name = chrName;
+      }
+
+      var residues = row[3];
+      if( residues.length == 2){
+        // ignore MT
+        if(residues[0] == residues[1]){
+          // homo
+          chr.homo = chr.homo + 1;  
+        } else if( residues[0] != "-" && residues[1] != "-"){
+          // hetero
+          chr.hetero = chr.hetero + 1;  
+        }else{
+          // del
+          chr.del = chr.del + 1;  
+        }
+      }
+    }
+    // push the last item
+    parsed.push(chr);
 
     return parsed;
 }
