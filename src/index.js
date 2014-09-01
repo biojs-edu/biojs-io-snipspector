@@ -6,11 +6,20 @@
 * Can you build a parser to analyze this snippet file?
 */
 
+var request = require("nets");
 
 var snipspector = {};
 
-snipspector.parse = function() {
-    
+snipspector.read = function(url, callback) {
+  request(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var data = body.split("\n");
+      callback(snipspector.parse(data));
+    }
+  })
+}
+
+snipspector.parse_static = function(){
     var data = ["rs5747620	20	15412698	TT",
     "rs9605903	20	15434720	CC",
     "rs2236639	20	15452483	GC",
@@ -19,8 +28,12 @@ snipspector.parse = function() {
     "rs2096537	21	15474749	AC",
     "rs9604959	22	15479107	CG",
     "rs9604967	22	15492342	CC"];
+    return snipspector.parse(data); 
+}
 
-    var parsed = [];
+snipspector.parse = function(data) {
+    
+   var chromosomes = [];
 
     // analyze snippets
     // homo(zygous): AA
@@ -29,6 +42,12 @@ snipspector.parse = function() {
     
     var chr = null;
     for (var i = 0; i < data.length; i++) {
+
+      // ignore empty rows
+      if(data[i].length == 0){
+        continue;
+      }
+
       var row = data[i].split(/\s+/);
       var chrName = row[1];
 
@@ -36,7 +55,7 @@ snipspector.parse = function() {
       if( chr == null ||  chrName !== chr.name) {
         // ignore the first time
         if( chr != null ){
-          parsed.push(chr);
+          chromosomes.push(chr);
         }
         chr = {homo: 0, hetero: 0, del: 0};
         chr.name = chrName;
@@ -58,14 +77,14 @@ snipspector.parse = function() {
       }
     }
     // push the last item
-    parsed.push(chr);
+    chromosomes.push(chr);
 
-    return parsed;
+    return chromosomes;
 }
 
-snipspector.parse(); //Should print [{name: "20", homo: 2, hetero: 1, del: 0,
-                     // {name: "21", homo: 1, hetero: 1, del: 1}, 
-                     // {name: "22", homo 1, hetero: 1, del: 0 }]
+//Should print [{name: "20", homo: 2, hetero: 1, del: 0,
+// {name: "21", homo: 1, hetero: 1, del: 1}, 
+// {name: "22", homo 1, hetero: 1, del: 0 }]
 
 
 module.exports = snipspector; // Export the object for other components

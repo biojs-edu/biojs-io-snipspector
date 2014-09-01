@@ -1,31 +1,34 @@
 {
-  "name": "biojs-io-snipspector", 
+  "name": "biojs-io-snipspector",
   "description": "A simple snippet parser",
   "version": "0.0.1",
-  "homepage": "http://github.com/biojs/biojs-io-snipspector", 
+  "homepage": "http://github.com/biojs/biojs-io-snipspector",
   "repository": {
     "type": "git",
     "url": "git://github.com/biojs/biojs-io-snipspector"
   },
   "author": {
-    "name": "BioJS", 
+    "name": "BioJS",
     "email": "biojs-technical@googlegroups.com"
   },
   "dependencies": {
+	"nets": "^1.0.0"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "browserify": "~4.2.0",
     "chai": "^1.9.1",
     "mocha": "~1.20.1",
+    "nock": "^0.46.0",
     "uglify-js": "~2.4.15"
   },
   "keywords": [
     "biojs, snippets"
   ],
-  "main": "./index.js", 
+  "main": "./index.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "build-browser": "browserify browser.js > biojs-io-snipspector.min.js" 
+    "prepublish": "npm run test; npm run build-browser",
+    "build-browser": "browserify browser.js > biojs-io-snipspector.min.js"
   },
   "license": "Apache 2"
 }
