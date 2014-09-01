@@ -18,18 +18,6 @@ snipspector.read = function(url, callback) {
   })
 }
 
-snipspector.parse_static = function(){
-    var data = ["rs5747620	20	15412698	TT",
-    "rs9605903	20	15434720	CC",
-    "rs2236639	20	15452483	GC",
-    "rs5747999	21	15455353	AA",
-    "rs11089263	21	15467656	A-",
-    "rs2096537	21	15474749	AC",
-    "rs9604959	22	15479107	CG",
-    "rs9604967	22	15492342	CC"];
-    return snipspector.parse(data); 
-}
-
 snipspector.parse = function(data) {
 
     if(data.indexOf('\n') >= 0 ){
