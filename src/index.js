@@ -13,8 +13,7 @@ var snipspector = {};
 snipspector.read = function(url, callback) {
   request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      var data = body.split("\n");
-      callback(snipspector.parse(data));
+      callback(snipspector.parse(body));
     }
   })
 }
@@ -32,6 +31,10 @@ snipspector.parse_static = function(){
 }
 
 snipspector.parse = function(data) {
+
+    if(data.indexOf('\n') >= 0 ){
+      data = data.split('\n');
+    }
     
    var chromosomes = [];
 
@@ -43,8 +46,8 @@ snipspector.parse = function(data) {
     var chr = null;
     for (var i = 0; i < data.length; i++) {
 
-      // ignore empty rows
-      if(data[i].length == 0){
+      // ignore empty rows or comments
+      if(data[i].length == 0 || data[i][0] === "#"){
         continue;
       }
 
@@ -61,13 +64,13 @@ snipspector.parse = function(data) {
         chr.name = chrName;
       }
 
-      var residues = row[3];
-      if( residues.length == 2){
+      var genotype = row[3];
+      if( genotype.length == 2){
         // ignore MT
-        if(residues[0] == residues[1]){
+        if(genotype[0] == genotype[1] && genotype[0] != "-"){
           // homo
           chr.homo = chr.homo + 1;  
-        } else if( residues[0] != "-" && residues[1] != "-"){
+        } else if( genotype[0] !== "-" && genotype[1] !== "-"){
           // hetero
           chr.hetero = chr.hetero + 1;  
         }else{

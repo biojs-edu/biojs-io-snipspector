@@ -1,7 +1,7 @@
 {
   "name": "biojs-io-snipspector",
   "description": "A simple snippet parser",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "homepage": "http://github.com/biojs/biojs-io-snipspector",
   "repository": {
     "type": "git",
