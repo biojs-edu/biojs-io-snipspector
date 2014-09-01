@@ -42,13 +42,13 @@ snipspector.parse = function() {
         chr.name = chrName;
       }
 
-      var residues = row[3];
-      if( residues.length == 2){
+      var genotype = row[3];
+      if( genotype.length == 2){
         // ignore MT
-        if(residues[0] == residues[1]){
+        if(genotype[0] == genotype[1] && genotype[0] != "-"){
           // homo
           chr.homo = chr.homo + 1;  
-        } else if( residues[0] != "-" && residues[1] != "-"){
+        } else if( genotype[0] != "-" && genotype[1] != "-"){
           // hetero
           chr.hetero = chr.hetero + 1;  
         }else{
