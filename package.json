@@ -1,7 +1,7 @@
 {
   "name": "biojs-io-snipspector",
   "description": "A simple snippet parser",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "http://github.com/biojs/biojs-io-snipspector",
   "repository": {
     "type": "git",
@@ -32,8 +32,8 @@
   },
   "shields": {
     "build": {
-      "img": "https://travis-ci.org/greenify/biojs-io-snipspector.svg?branch=master",
-      "href": "https://travis-ci.org/greenify/biojs-io-snipspector"
+      "img": "https://travis-ci.org/biojs/biojs-io-snipspector.svg?branch=master",
+      "href": "https://travis-ci.org/biojs/biojs-io-snipspector"
 	  }
    },
   "license": "Apache 2"
