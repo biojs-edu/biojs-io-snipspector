@@ -1,7 +1,7 @@
 {
   "name": "biojs-io-snipspector",
   "description": "A simple snippet parser",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "http://github.com/biojs/biojs-io-snipspector",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "uglify-js": "~2.4.15"
   },
   "keywords": [
-    "biojs, snippets"
+    "biojs", "snippets"
   ],
   "main": "./index.js",
   "scripts": {
